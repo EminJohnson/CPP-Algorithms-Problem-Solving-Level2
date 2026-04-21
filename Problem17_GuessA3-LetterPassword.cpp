@@ -47,6 +47,14 @@ bool GuessPassword(string Pass)
 
 int main()
 {
-    GuessPassword(ReadPass());  
+    while (!GuessPassword(ReadPass())) 
+    {
+        cout << "\nWrong Input or Password not found. Please try again.\n";
+        cout << "___________________________________________________\n";
+    }
+
+    cout << "\nSystem Unlocked Successfully!";
+    
     return 0;
+        
 }
