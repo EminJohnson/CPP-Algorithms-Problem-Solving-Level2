@@ -74,12 +74,17 @@ string GenerateWord(EnRandom Char, unsigned short Length)
 string GenerateKey()
 {
     string Key = ""; 
-    Key = GenerateWord(EnRandom::CapitalLetter, 4) + "-";
-    Key = Key + GenerateWord(EnRandom::CapitalLetter, 4) + "-";
-    Key = Key + GenerateWord(EnRandom::CapitalLetter, 4) + "-";
-    Key = Key + GenerateWord(EnRandom::CapitalLetter, 4);
+	for (unsigned short i = 1; i <= 4; i++)
+	{
+		Key += GenerateWord(EnRandom::CapitalLetter, 4);
 
+		if (i < 4)
+		{
+			Key += "-";
+		}
+	}
     return Key;
+
 }
 
 void PrintGenerateKeys(unsigned short KeysNumber)
