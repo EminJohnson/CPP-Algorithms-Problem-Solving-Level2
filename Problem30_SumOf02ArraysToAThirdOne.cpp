@@ -2,94 +2,93 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 
-using std::cout;
-using std::cin;
-using std::string;
-using std::endl;
+using namespace std;
 
-void GetValidateNumber(unsigned short& Number)
+void SumOf2Arrays(unsigned short arry1[100], unsigned short arry2[100], unsigned short arrSum[100], unsigned short lengthNumber);
+
+unsigned short ReadLengthNumber(unsigned short& lengthNumber)
 {
     while (true)
     {
-        if (!(cin >> Number))
+        cout << "Enter Number of length (1-100): ";
+        if (!(cin >> lengthNumber))
         {
             cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid !!, Enter areal Number : \n";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid!!, Enter a real Number.\n";
             continue;
         }
 
-        if (Number < 1 || Number > 100)
+        if (lengthNumber < 1 || lengthNumber > 100)
         {
-            cout << "Enter other Number [1 -> 100] : \n";
+            cout << "Invalid Range! Enter a number between 1 and 100.\n";
             continue;
         }
-        break;
+        return lengthNumber;
     }
-}
-
-unsigned short ReadNumber(string Message, unsigned short& Number)
-{
-    cout << Message;
-    GetValidateNumber(Number);
-    return Number;
 }
 
 unsigned short RandomNumber(unsigned short From, unsigned short To)
 {
-    unsigned short  Random = rand() % (To - From + 1) + From;
-
-    return Random;
+    return rand() % (To - From + 1) + From;
 }
 
-unsigned short  GetArryRandomElement(unsigned short arry[100], unsigned short Number)
+void FillArrayWithRandomElements(unsigned short arr[100], unsigned short length)
 {
-    for (unsigned short i = 0; i < Number; i++)
+    for (unsigned short i = 0; i < length; i++)
     {
-        arry[i] = RandomNumber( 1, 100);
+        arr[i] = RandomNumber(1, 100);
     }
-
-    return arry[100];
 }
 
-void PrintArryRandomElement(unsigned short arry[100], unsigned short Number)
+void PrintArray(unsigned short arr[100], unsigned short length)
 {
-    cout << "\nArray Elements : ";
-    for (int i = 0; i <Number; i++)
-        cout << arry[i] << " ";
-
+    for (unsigned short i = 0; i < length; i++)
+        cout << arr[i] << " ";
     cout << "\n";
 }
 
-unsigned short CalculateSumNumbers(unsigned short arry[100], unsigned short Number)
+void CopyArray(unsigned short arrSource[100], unsigned short arrDestination[100], unsigned short length)
 {
-    unsigned short Sum = 0;
-
-    for (unsigned short i = 0; i < Number; i++)
-    {
-        Sum += arry[i];
-    }
-    
-    return Sum;
+    for (unsigned short i = 0; i < length; i++)
+        arrDestination[i] = arrSource[i];
 }
 
-void PrintFunction(unsigned short arry[100], unsigned short Number)
+void SumOf2Arrays(unsigned short arry1[100], unsigned short arry2[100], unsigned short arrSum[100], unsigned short lengthNumber)
 {
-    PrintArryRandomElement(arry, Number);
-    cout << "\n Sum of all number is : " << CalculateSumNumbers(arry, Number) << endl;
+    
+    for (unsigned short i = 0; i < lengthNumber; i++)
+    {
+        arrSum[i] = arry1[i] + arry2[i];
+    }
 }
 
 int main()
 {
     srand((unsigned)time(NULL));
 
-	unsigned short arry[100] = {0}, Number = 0;
+    unsigned short arr[100], arr2[100], arrSum[100], lengthNumber = 0;
 
-    cout << ReadNumber("Enter a Number [ 1 -> 100 ] \n", Number) << endl;
+    ReadLengthNumber(lengthNumber);
 
-    GetArryRandomElement(arry, Number);
-    PrintFunction(arry, Number);
+    FillArrayWithRandomElements(arr, lengthNumber);
+
+    cout << "\nArray 1 elements:\n";
+    PrintArray(arr, lengthNumber);
+
+    CopyArray(arr, arr2, lengthNumber);
+
+    cout << "\nArray 2 elements after copy:\n";
+    PrintArray(arr2, lengthNumber);
+
+
+    SumOf2Arrays(arr, arr2, arrSum, lengthNumber);
+
+    cout << "\nSum of arry1 and arry2 Alements :\n";
+    PrintArray(arrSum, lengthNumber);
+
 
     return 0;
 }
