@@ -1,37 +1,39 @@
 #include <iostream>
-
+#include <string>
+#include <limits>
+#include <iomanip>
 using namespace std;
 
-void PrintHeader()
+void PrindHeadTable()
 {
-    cout << "\n\n\t\t\tMultiplication Table From 1 to 10 : \n\n";
-    for (int i = 1; i <= 10; i++)
-    {
-        cout  << "\t" << i;
-    }
-    cout << "\n------------------------------------------------------------------------------------\n";
+
+	cout << setw(60) << "Multiplication Table From 1 to 10" << endl;
+	cout << "\n---------------------------------------------------------------------------------------\n";
+	cout << "    ";
+	for (int i = 1; i <= 10; i++)
+	{
+		cout << setw(8) << i;
+	}
+
+	cout << "\n---------------------------------------------------------------------------------------\n";
 }
 
-string PrintColumSperator(int i)
+void PrintBodyMultiplicationTable()
 {
-    if (i < 10) return "   |"; else return "  |";
-}
-
-void PrintMultiplicationTable()
-{
-    for (int i = 1; i <= 10; i++)
-    {
-        cout << i << PrintColumSperator(i) ;
-        for (int j = 1; j <= 10; j++)
-        {
-            cout << "\t" << j * i;
-        }
-        cout << endl;
-    }
+	for (int i = 1; i <= 10; i++)
+	{
+		cout << setw(2) << i << setw(2) << "|";
+		for (int j = 1; j <= 10; j++)
+		{
+			cout << setw(8) << i * j;
+		}
+		cout << endl;
+	}
 }
 
 int main()
 {
-    PrintHeader();
-    PrintMultiplicationTable();
+	PrindHeadTable();
+	PrintBodyMultiplicationTable();
+	return 0;
 }
